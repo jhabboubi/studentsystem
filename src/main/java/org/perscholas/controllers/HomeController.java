@@ -1,7 +1,10 @@
 package org.perscholas.controllers;
 
 import lombok.extern.java.Log;
+import org.perscholas.dao.IStudentRepo;
 import org.perscholas.models.Student;
+import org.perscholas.services.StudentServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +20,17 @@ import java.util.List;
 @SessionAttributes({"student"})
 public class HomeController {
 
+    StudentServices studentServices;
+    @Autowired
+    public HomeController(StudentServices studentServices) {
+        this.studentServices = studentServices;
+    }
+
     @GetMapping("/form")
     public String form(){
+
         return "registerstudent";
+
     }
 
 /*
@@ -56,7 +67,9 @@ public class HomeController {
         }else{
             log.warning("NOT in if statement");
             log.info("Student: " + student);
-            model.addAttribute("student", student);
+            Student databaseStudent = studentServices.saveStudent(student);
+
+            model.addAttribute("student", databaseStudent);
             return "student_confirmation";
         }
     }
@@ -65,6 +78,13 @@ public class HomeController {
     public String getSession(){
 
         return "getsession";
+    }
+
+    @GetMapping("showstudent/{id}")
+    public String showStudent(@PathVariable("id") Long studentId, Model model){
+        Student s = studentServices.getStudentbyId(studentId);
+        model.addAttribute("student", s);
+        return "showstudent";
     }
 
 
