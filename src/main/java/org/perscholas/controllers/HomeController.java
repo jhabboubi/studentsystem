@@ -21,10 +21,14 @@ import java.util.List;
 public class HomeController {
 
     StudentServices studentServices;
+
     @Autowired
     public HomeController(StudentServices studentServices) {
         this.studentServices = studentServices;
     }
+
+    @Autowired
+
 
     @GetMapping("/form")
     public String form(){
@@ -60,16 +64,13 @@ public class HomeController {
     public String newStudent(@ModelAttribute("student") @Valid Student student, BindingResult result,Model model ){
         System.out.println(result.hasErrors());
         if(result.hasErrors()) {
-            log.warning("in if statement");
             log.warning("Error Count: "+String.valueOf(result.getErrorCount()));
             return "registerstudent";
 
         }else{
-            log.warning("NOT in if statement");
             log.info("Student: " + student);
             Student databaseStudent = studentServices.saveStudent(student);
-
-            model.addAttribute("student", databaseStudent);
+            model.addAttribute("student", student);
             return "student_confirmation";
         }
     }

@@ -20,7 +20,7 @@ public class StudentServices {
     }
 
     public List<Student> getAllStudents(){
-        //logic
+
         return sRepo.findAll();
     }
 
@@ -28,7 +28,9 @@ public class StudentServices {
             return sRepo.getById(id);
     }
     public Student saveStudent(Student s){
-        return sRepo.saveAndFlush(s);
+
+        return sRepo.save(s);
 
     }
+
 }
