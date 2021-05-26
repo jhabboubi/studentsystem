@@ -8,6 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("create")
@@ -41,6 +43,7 @@ public class HomeController {
     public Student initStudent(){
         return new Student();
     }
+
 
     @PostMapping("/newstudent")
     public String newStudent(@ModelAttribute("student") @Valid Student student, BindingResult result,Model model ){

@@ -30,7 +30,7 @@
     <label for="password">password:</label><br>
     <input type="password" id="password"  th:field="*{sPassword}" /><br>
     <div>
-        <p class="error" th:each="error : ${#fields.errors('sPassword')}" th:text="${error}"></p>
+        <pre class="error" th:each="error : ${#fields.errors('sPassword')}" th:text="${error}"></pre>
     </div>
 
     <input type="submit" value="submit" />
